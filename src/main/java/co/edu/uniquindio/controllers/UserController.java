@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService; // Eliminamos UserRepository, solo usamos UserService
+    private final UserService userService;
 
     @PostMapping
     public ResponseEntity<UserResponse> create(@Valid @RequestBody UserRegistrationRequest request) {

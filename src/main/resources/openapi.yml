@@ -1,0 +1,770 @@
+openapi: 3.0.3
+info:
+  title: Plataforma de Reportes Comunitarios - ResQNET
+  description: API para gestionar reportes de seguridad y emergencias en la comunidad.
+  version: 1.0.0
+servers:
+  - url: http://localhost:9090/
+    description: Servidor local
+
+paths:
+  # Authentication and Users
+  /users:
+    post:
+      summary: User registration
+      description: Allows users to register by providing their personal data.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistrationDTO'
+      responses:
+        '201':
+          description: User registered successfully.
+        '400':
+          description: Invalid data.
+        '409':
+          description: The provided email is already registered.
+        '500':
+          description: Internal server error.
+        '503':
+          description: Service unavailable.
+
+    get:
+      summary: Get paginated list of users
+      tags:
+        - Users
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+            example: 0
+          description: The page number to retrieve (starting from 0).
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+            example: 10
+          description: The number of users per page (max 100).
+      responses:
+        "200":
+          description: Paginated user list retrieved successfully.
+        "401":
+          description: Unauthorized - User is not authenticated.
+        "403":
+          description: Forbidden - User does not have permission to access this resource.
+        "500":
+          description: Internal server error.
+        "503":
+          description: Service unavailable.
+
+  /users/{id}:
+    get:
+      summary: Get user information
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the user to retrieve.
+      responses:
+        '200':
+          description: User information retrieved successfully.
+        '400':
+          description: Invalid user ID.
+        '404':
+          description: User not found.
+        '500':
+          description: Internal server error.
+
+    put:
+      summary: Update user
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the user to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistrationDTO'
+      responses:
+        '204':
+          description: User updated successfully.
+        '400':
+          description: Invalid request data.
+        '404':
+          description: User not found.
+        '500':
+          description: Internal server error.
+
+    delete:
+      summary: Delete user
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the user to delete.
+      responses:
+        '204':
+          description: User deleted successfully.
+        '400':
+          description: Invalid user ID.
+        '404':
+          description: User not found.
+        '500':
+          description: Internal server error.
+
+  # Authentication
+  /auth/sessions:
+    post:
+      summary: User login
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginDTO'
+      responses:
+        '200':
+          description: Successful login.
+        '400':
+          description: Invalid credentials.
+        '500':
+          description: Internal server error.
+
+  /auth/codes:
+    post:
+      summary: Verify code
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerificationDTO'
+      responses:
+        '200':
+          description: Account activated successfully.
+        '400':
+          description: Invalid or expired code.
+        '500':
+          description: Internal server error.
+
+  /auth/password-reset:
+    post:
+      summary: Request password reset code
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordDTO'
+      responses:
+        '200':
+          description: Recovery code sent.
+        '400':
+          description: Invalid email.
+        '500':
+          description: Internal server error.
+        '503':
+          description: Service unavailable.
+
+  /auth/password-reset/{code}:
+    post:
+      summary: Reset password
+      tags:
+        - Authentication
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordDTO'
+      responses:
+        '200':
+          description: Password changed successfully.
+        '400':
+          description: Invalid code or expired.
+        '500':
+          description: Internal server error.
+
+  # Reports
+  /reports:
+    post:
+      summary: Create a report
+      tags:
+        - Reports
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportDTO'
+      responses:
+        '201':
+          description: Report created successfully.
+        '400':
+          description: Invalid report data.
+        '500':
+          description: Internal server error.
+
+    get:
+      summary: List reports with filters
+      tags:
+        - Reports
+
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, verified, rejected, resolved]
+          description: Filter reports by status
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+      responses:
+        '200':
+          description: Reports retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReportDTO'
+        '500':
+          description: Internal server error.
+
+  /reports/{id}:
+    get:
+      security:
+      summary: Get report details
+      tags:
+        - Reports
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the report to retrieve.
+      responses:
+        '200':
+          description: Report details retrieved successfully.
+        '400':
+          description: Invalid report ID.
+        '404':
+          description: Report not found.
+        '500':
+          description: Internal server error.
+
+    put:
+      summary: Update report
+      tags:
+        - Reports
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the report to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportDTO'
+      responses:
+        '200':
+          description: Report updated successfully.
+        '400':
+          description: Invalid request data.
+        '404':
+          description: Report not found.
+        '500':
+          description: Internal server error.
+
+    delete:
+      summary: Delete report
+      tags:
+        - Reports
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the report to delete.
+      responses:
+        '204':
+          description: Report deleted successfully.
+        '400':
+          description: Invalid report ID.
+        '404':
+          description: Report not found.
+        '500':
+          description: Internal server error.
+
+    patch:
+      summary: Partially update a report (prioritize, approve, reject)
+      tags:
+        - Reports
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the report to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateReportDTO"
+      responses:
+        '200':
+          description: Report updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReportDTO"
+        '400':
+          description: Invalid data.
+        '404':
+          description: Report not found.
+        '500':
+          description: Internal server error.
+
+  /reports/{id}/comments:
+    post:
+      summary: Add comment to a report
+      tags:
+        - Comments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the report to which the comment will be added.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentDTO'
+      responses:
+        '201':
+          description: Comment added successfully.
+        '400':
+          description: Invalid request data.
+        '500':
+          description: Internal server error.
+    get:
+      summary: List comments for a report
+      tags:
+        - Comments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the report to retrieve comments for.
+      responses:
+        '200':
+          description: Comments retrieved successfully.
+        '404':
+          description: Report not found.
+        '500':
+          description: Internal server error.
+
+  /comments/{id}:
+    delete:
+      summary: Delete comment
+      tags:
+        - Comments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the comment to delete.
+      responses:
+        '204':
+          description: Comment deleted successfully.
+        '404':
+          description: Comment not found.
+        '500':
+          description: Internal server error.
+
+  # Notifications
+  /notifications:
+    post:
+      summary: Send notification
+      tags:
+        - Notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - reportId
+                - message
+              properties:
+                reportId:
+                  type: string
+                  description: The ID of the report.
+                message:
+                  type: string
+                  description: The notification message.
+      responses:
+        '200':
+          description: Notification sent successfully.
+        '400':
+          description: Invalid request data.
+        '500':
+          description: Internal server error.
+  /notifications/ws:
+    get:
+      description: Real time notificacations Websocket
+      summary: List notifications
+      tags:
+        - Notifications
+      responses:
+        '101':
+          description: Switching protocols.
+        '200':
+          description: Notifications retrieved successfully.
+        '500':
+          description: Internal server error.
+
+  # Others
+  /images:
+    post:
+      summary: Upload an image
+      tags:
+        - Others
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Image
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+        '400':
+          description: Invalid image format.
+        '500':
+          description: Internal server error.
+
+  /reports/export:
+    get:
+      summary: Generate PDF report
+      tags:
+        - Others
+      responses:
+        '200':
+          description: PDF report generated successfully.
+        '500':
+          description: Internal server error.
+
+  /categories:
+    get:
+      summary: List categories
+      tags:
+        - Others
+      responses:
+        '200':
+          description: Categories retrieved successfully.
+        '500':
+          description: Internal server error.
+
+    post:
+      summary: Create a category
+      tags:
+        - Others
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  minLength: 2
+                  maxLength: 100
+      responses:
+        '201':
+          description: Category created successfully.
+        '400':
+          description: Invalid request data.
+        '500':
+          description: Internal server error.
+
+  /categories/{id}:
+    put:
+      summary: Edit category
+      tags:
+        - Others
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the category to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                  minLength: 2
+                  maxLength: 100
+      responses:
+        '200':
+          description: Category updated successfully.
+        '400':
+          description: Invalid request data.
+        '404':
+          description: Category not found.
+        '500':
+          description: Internal server error.
+    delete:
+      summary: Delete category
+      tags:
+        - Others
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the category to delete.
+      responses:
+        '204':
+          description: Category deleted successfully.
+        '404':
+          description: Category not found.
+        '500':
+          description: Internal server error.
+
+components:
+  schemas:
+    UserRegistrationDTO:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+          minLength: 2
+          maxLength: 100
+        email:
+          type: string
+          format: email
+        phoneNumber:
+          type: string
+          pattern: '^\+?[0-9]{10,15}$'
+        city:
+          type: string
+          minLength: 2
+          maxLength: 100
+        address:
+          type: string
+          minLength: 5
+          maxLength: 200
+        password:
+          type: string
+          minLength: 8
+          maxLength: 50
+
+    VerificationDTO:
+      type: object
+      required:
+        - email
+        - code
+      properties:
+        email:
+          type: string
+          format: email
+        code:
+          type: string
+          minLength: 6
+          maxLength: 6
+
+    LoginDTO:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+          maxLength: 50
+
+    ForgotPasswordDTO:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+
+    ResetPasswordDTO:
+      type: object
+      required:
+        - email
+        - code
+        - newPassword
+      properties:
+        email:
+          type: string
+          format: email
+        code:
+          type: string
+          minLength: 6
+          maxLength: 6
+        newPassword:
+          type: string
+          minLength: 8
+          maxLength: 50
+
+    ReportDTO:
+      type: object
+      required:
+        - title
+        - category
+        - description
+      properties:
+        title:
+          type: string
+          minLength: 5
+          maxLength: 200
+        category:
+          type: string
+          enum: [SAFETY, MEDICAL_EMERGENCY, INFRAESTRUCTURE, PETS, COMMUNITY]
+        description:
+          type: string
+          minLength: 10
+          maxLength: 1000
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
+        status:
+          type: string
+          enum: [pending, in_review, resolved]
+        important:
+          type: boolean
+
+    UpdateReportDTO:
+      type: object
+      properties:
+        priorityScore:
+          type: integer
+          minimum: 0
+          maximum: 10
+        status:
+          type: string
+          enum: [PENDING, VERIFIED, REJECTED, RESOLVED]
+        rejectionReason:
+          type: string
+          minLength: 10
+          maxLength: 500
+
+    CommentDTO:
+      type: object
+      required:
+        - content
+      properties:
+        commentId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        content:
+          type: string
+          minLength: 1
+          maxLength: 500
