@@ -34,6 +34,8 @@ paths:
           description: Service unavailable.
 
     get:
+      security:
+        - BearerAuth: []
       summary: Get paginated list of users
       tags:
         - Users
@@ -71,6 +73,8 @@ paths:
 
   /users/{id}:
     get:
+      security:
+        - BearerAuth: []
       summary: Get user information
       tags:
         - Users
@@ -92,6 +96,8 @@ paths:
           description: Internal server error.
 
     put:
+      security:
+        - BearerAuth: []
       summary: Update user
       tags:
         - Users
@@ -119,6 +125,8 @@ paths:
           description: Internal server error.
 
     delete:
+      security:
+        - BearerAuth: []
       summary: Delete user
       tags:
         - Users
@@ -140,44 +148,7 @@ paths:
           description: Internal server error.
 
   # Authentication
-  /auth/sessions:
-    post:
-      summary: User login
-      tags:
-        - Authentication
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LoginDTO'
-      responses:
-        '200':
-          description: Successful login.
-        '400':
-          description: Invalid credentials.
-        '500':
-          description: Internal server error.
-
-  /auth/codes:
-    post:
-      summary: Verify code
-      tags:
-        - Authentication
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VerificationDTO'
-      responses:
-        '200':
-          description: Account activated successfully.
-        '400':
-          description: Invalid or expired code.
-        '500':
-          description: Internal server error.
-
+  # Endpoint unificado para enviar códigos de recuperación
   /auth/password-reset:
     post:
       summary: Request password reset code
@@ -199,6 +170,53 @@ paths:
         '503':
           description: Service unavailable.
 
+  # Endpoint unificado para validar códigos
+  /auth/codes/validate:
+    post:
+      summary: Validate verification code
+      tags:
+        - Authentication
+      operationId: validateVerificationCode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                code:
+                  type: string
+                type:
+                  type: string
+                  enum: [password_reset, account_activation]
+              required:
+                - email
+                - code
+                - type
+      responses:
+        "200":
+          description: Verification code is valid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PasswordResetValidationResponse"
+        "400":
+          description: Invalid or expired verification code
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  # Endpoint para restablecer la contraseña
   /auth/password-reset/{code}:
     post:
       summary: Reset password
@@ -227,6 +245,8 @@ paths:
   # Reports
   /reports:
     post:
+      security:
+        - BearerAuth: []
       summary: Create a report
       tags:
         - Reports
@@ -245,6 +265,8 @@ paths:
           description: Internal server error.
 
     get:
+      security:
+        - BearerAuth: []
       summary: List reports with filters
       tags:
         - Reports
@@ -284,6 +306,7 @@ paths:
   /reports/{id}:
     get:
       security:
+        - BearerAuth: []
       summary: Get report details
       tags:
         - Reports
@@ -305,6 +328,8 @@ paths:
           description: Internal server error.
 
     put:
+      security:
+        - BearerAuth: []
       summary: Update report
       tags:
         - Reports
@@ -332,6 +357,8 @@ paths:
           description: Internal server error.
 
     delete:
+      security:
+        - BearerAuth: []
       summary: Delete report
       tags:
         - Reports
@@ -353,6 +380,8 @@ paths:
           description: Internal server error.
 
     patch:
+      security:
+        - BearerAuth: []
       summary: Partially update a report (prioritize, approve, reject)
       tags:
         - Reports
@@ -385,6 +414,8 @@ paths:
 
   /reports/{id}/comments:
     post:
+      security:
+        - BearerAuth: []
       summary: Add comment to a report
       tags:
         - Comments
@@ -409,6 +440,8 @@ paths:
         '500':
           description: Internal server error.
     get:
+      security:
+        - BearerAuth: []
       summary: List comments for a report
       tags:
         - Comments
@@ -429,6 +462,8 @@ paths:
 
   /comments/{id}:
     delete:
+      security:
+        - BearerAuth: []
       summary: Delete comment
       tags:
         - Comments
@@ -450,6 +485,8 @@ paths:
   # Notifications
   /notifications:
     post:
+      security:
+        - BearerAuth: []
       summary: Send notification
       tags:
         - Notifications
@@ -476,8 +513,11 @@ paths:
           description: Invalid request data.
         '500':
           description: Internal server error.
+
   /notifications/ws:
     get:
+      security:
+        - BearerAuth: []
       description: Real time notificacations Websocket
       summary: List notifications
       tags:
@@ -489,6 +529,26 @@ paths:
           description: Notifications retrieved successfully.
         '500':
           description: Internal server error.
+
+  /notifications/{id}/read:
+    patch:
+      security:
+        - BearerAuth: []
+      tags:
+        - Notifications
+      summary: Marcar notificación como leída
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Notificación marcada como leída
+        '404':
+          description: Notificación no encontrada
+
 
   # Others
   /images:
@@ -534,19 +594,29 @@ paths:
 
   /categories:
     get:
+      security:
+        - BearerAuth: []
       summary: List categories
       tags:
-        - Others
+        - Categories
       responses:
         '200':
           description: Categories retrieved successfully.
         '500':
           description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDTO'
 
     post:
+      security:
+        - BearerAuth: []
       summary: Create a category
       tags:
-        - Others
+        - Categories
       requestBody:
         required: true
         content:
@@ -570,9 +640,11 @@ paths:
 
   /categories/{id}:
     put:
+      security:
+        - BearerAuth: []
       summary: Edit category
       tags:
-        - Others
+        - Categories
       parameters:
         - name: id
           in: path
@@ -603,9 +675,11 @@ paths:
         '500':
           description: Internal server error.
     delete:
+      security:
+        - BearerAuth: []
       summary: Delete category
       tags:
-        - Others
+        - Categories
       parameters:
         - name: id
           in: path
@@ -621,7 +695,110 @@ paths:
         '500':
           description: Internal server error.
 
+
+  /cities:
+    get:
+      summary: List all cities
+      tags: [Cities]
+      responses:
+        '200':
+          description: List of cities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CityDTO'
+        '500':
+          description: Internal server error.
+
+    post:
+      summary: Create a city
+      tags: [Cities]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CityDTO'
+      responses:
+        '201':
+          description: City created successfully.
+        '400':
+          description: Invalid request data.
+        '409':
+          description: City already exists.
+        '500':
+          description: Internal server error.
+
+  /cities/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The ID of the city.
+
+    get:
+      summary: Get a city by ID
+      tags: [Cities]
+      responses:
+        '200':
+          description: City details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityDTO'
+        '400':
+          description: Invalid city ID.
+        '404':
+          description: City not found.
+        '500':
+          description: Internal server error.
+    put:
+      summary: Update a city
+      tags: [Cities]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CityDTO'
+      responses:
+        '200':
+          description: City updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CityDTO'
+        '400':
+          description: Invalid request.
+        '404':
+          description: City not found.
+        '500':
+          description: Internal server error.
+
+
+    delete:
+      summary: Delete a city
+      tags: [Cities]
+      responses:
+        '204':
+          description: City deleted successfully.
+        '400':
+          description: Invalid city ID.
+        '404':
+          description: City not found.
+        '500':
+          description: Internal server error.
+
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     UserRegistrationDTO:
       type: object
@@ -629,6 +806,8 @@ components:
         - name
         - email
         - password
+        - dateBirth
+        - rol
       properties:
         name:
           type: string
@@ -637,6 +816,10 @@ components:
         email:
           type: string
           format: email
+        dateBirth:
+          type: string
+          format: date
+          example: "1990-09-02"
         phoneNumber:
           type: string
           pattern: '^\+?[0-9]{10,15}$'
@@ -650,8 +833,22 @@ components:
           maxLength: 200
         password:
           type: string
+          description: The password´s user (Must contain at least one digit, one uppercase and one lowercase)
+          pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*$"
           minLength: 8
           maxLength: 50
+        location:
+          $ref: '#/components/schemas/LocationDTO'
+        preferredCategoryIds:
+          type: array
+          items:
+            type: string
+          example: ["cat1", "cat2"]
+        rol:
+          type: string
+          enum:
+            - user
+            - admin
 
     VerificationDTO:
       type: object
@@ -679,7 +876,8 @@ components:
         password:
           type: string
           minLength: 8
-          maxLength: 50
+          pattern: "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*$"
+          description: The password´s user (Must contain at least one digit, one uppercase and one lowercase)
 
     ForgotPasswordDTO:
       type: object
@@ -720,9 +918,11 @@ components:
           type: string
           minLength: 5
           maxLength: 200
-        category:
-          type: string
-          enum: [SAFETY, MEDICAL_EMERGENCY, INFRAESTRUCTURE, PETS, COMMUNITY]
+        categoryIds:
+          type: array
+          items:
+            type: string
+          example: ["cat3", "cat4"]
         description:
           type: string
           minLength: 10
@@ -768,3 +968,88 @@ components:
           type: string
           minLength: 1
           maxLength: 500
+
+    CategoryDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          example: Seguridad
+      required: [name]
+
+    CityDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          example: Bogotá
+      required: [name]
+
+    LocationDTO:
+      type: object
+      properties:
+        latitude:
+          type: number
+          format: double
+        longitude:
+          type: number
+          format: double
+      required: [latitude, longitude]
+
+    PasswordResetResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "123456"
+        message:
+          type: string
+          example: "A reset code has been sent to your email."
+
+    PasswordResetValidationRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        code:
+          type: string
+          example: "123456"
+
+    PasswordResetValidationResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: OK
+        message:
+          type: string
+          example: Verification code is valid
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: "USER_NOT_FOUND"
+          description: Specific error code
+        message:
+          type: string
+          example: "The user with the provided ID does not exist."
+          description: Detailed error description
+        details:
+          type: array
+          items:
+            type: string
+          example:
+            - "The 'latitude' field is required."
+            - "The radius must be greater than 100 meters."
+          description: List of specific errors in the request (optional)
+      required:
+        - code
+        - message
