@@ -1,21 +1,19 @@
 package co.edu.uniquindio.mappers;
 
-import co.edu.uniquindio.dto.UserRegistrationRequest;
+import co.edu.uniquindio.dto.CategoryRequest;
+import co.edu.uniquindio.dto.CategoryResponse;
 import co.edu.uniquindio.dto.UserResponse;
 import co.edu.uniquindio.model.User;
+import co.edu.uniquindio.model.enums.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
-import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface UserMapper {
+public interface CategoryMapper {
     @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID().toString())")
-    @Mapping(target = "status", constant = "REGISTERED")
-    @Mapping(target = "password" , expression = "java( new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(userDTO.password()) )")
-    User parseOf(UserRegistrationRequest userDTO);
-
+    @Mapping(target = "status", constant = "ACTIVE")
     UserResponse toUserResponse(User user);
+    Category parseOf(CategoryRequest categoryRequest);
+    CategoryResponse toCategoryResponse(Category category);
 }
-
-

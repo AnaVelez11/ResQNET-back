@@ -12,8 +12,10 @@ import org.springframework.data.annotation.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "users")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
     @Id
+    @EqualsAndHashCode.Include
     private String id;
     private String fullName;
     private String email;

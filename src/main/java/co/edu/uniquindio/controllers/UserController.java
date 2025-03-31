@@ -2,9 +2,11 @@ package co.edu.uniquindio.controllers;
 
 import co.edu.uniquindio.dto.UserRegistrationRequest;
 import co.edu.uniquindio.dto.UserResponse;
+import co.edu.uniquindio.dto.UserSearchRequest;
 import co.edu.uniquindio.services.interfaces.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,5 +41,10 @@ public class UserController {
         return userResponse
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping()
+    public Page<UserResponse> searchUsers(UserSearchRequest request){
+        return userService.searchUsers(request);
     }
 }
