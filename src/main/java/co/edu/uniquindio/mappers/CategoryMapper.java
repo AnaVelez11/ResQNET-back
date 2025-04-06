@@ -4,7 +4,6 @@ import co.edu.uniquindio.dto.CategoryRequest;
 import co.edu.uniquindio.dto.CategoryResponse;
 import co.edu.uniquindio.dto.UserResponse;
 import co.edu.uniquindio.model.User;
-import co.edu.uniquindio.model.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

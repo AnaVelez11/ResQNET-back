@@ -16,8 +16,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "users")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
     @Id
+    @EqualsAndHashCode.Include
     private String id;
     private String name;
     private String phone;
