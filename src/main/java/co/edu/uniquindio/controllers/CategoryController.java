@@ -2,7 +2,7 @@ package co.edu.uniquindio.controllers;
 
 import co.edu.uniquindio.dto.CategoryRequest;
 import co.edu.uniquindio.dto.CategoryResponse;
-import co.edu.uniquindio.services.interfaces.CategoryServices;
+import co.edu.uniquindio.services.interfaces.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/categories")
 @RequiredArgsConstructor
 public class CategoryController {
-    private final CategoryServices categoryServices;
+    private final CategoryService categoryServices;
 
     @PostMapping
     public CategoryResponse create(@Valid CategoryRequest category) {

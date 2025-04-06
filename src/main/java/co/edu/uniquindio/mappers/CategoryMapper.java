@@ -3,6 +3,7 @@ package co.edu.uniquindio.mappers;
 import co.edu.uniquindio.dto.CategoryRequest;
 import co.edu.uniquindio.dto.CategoryResponse;
 import co.edu.uniquindio.dto.UserResponse;
+import co.edu.uniquindio.model.Category;
 import co.edu.uniquindio.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

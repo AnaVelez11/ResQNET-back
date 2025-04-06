@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public interface CategoryServices {
+public interface CategoryService {
     CategoryResponse save(CategoryRequest category);
     CategoryResponse update(String id,CategoryRequest category);
     List<CategoryResponse> findAll();

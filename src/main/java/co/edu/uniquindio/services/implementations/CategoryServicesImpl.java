@@ -5,10 +5,10 @@ import co.edu.uniquindio.dto.CategoryResponse;
 import co.edu.uniquindio.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.exceptions.ValueConflictException;
 import co.edu.uniquindio.mappers.CategoryMapper;
-import co.edu.uniquindio.model.enums.Category;
+import co.edu.uniquindio.model.Category;
 import co.edu.uniquindio.model.enums.CategoryStatus;
 import co.edu.uniquindio.repositories.CategoryRepository;
-import co.edu.uniquindio.services.interfaces.CategoryServices;
+import co.edu.uniquindio.services.interfaces.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class CategoryServicesImpl implements CategoryServices {
+public class CategoryServicesImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
 
