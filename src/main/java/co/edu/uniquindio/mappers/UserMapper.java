@@ -3,31 +3,26 @@ package co.edu.uniquindio.mappers;
 import co.edu.uniquindio.dto.UserRegistrationRequest;
 import co.edu.uniquindio.dto.UserResponse;
 import co.edu.uniquindio.model.User;
-import org.springframework.stereotype.Component;
+import co.edu.uniquindio.model.enums.UserStatus;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Component
-public class UserMapper {
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+public interface UserMapper {
 
-    public User parseOf(UserRegistrationRequest request) {
-        return User.builder()
-                .id(request.id())  // Usa el id si viene, MongoDB lo generará si es null
-                .fullName(request.fullName())
-                .email(request.email())
-                .password(request.password()) // Se encripta en el servicio
-                .cellphoneNumber(request.cellphoneNumber())
-                .rol(request.rol())
-                .status(request.userStatus()) // ⚠ Cambié de request.status() a request.userStatus()
-                .build();
-    }
+    // Convierte UserRegistrationRequest a User
+    @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID().toString())")
+    @Mapping(target = "status", constant = "REGISTERED")
+    @Mapping(target = "password", expression = "java(encryptPassword(userDTO.password()))")
+    User parseOf(UserRegistrationRequest userDTO);
 
-    public UserResponse toUserResponse(User user) {
-        return new UserResponse(
-                user.getId(),
-                user.getFullName(),
-                user.getEmail(),
-                user.getRol() // ⚠ Eliminé `status` porque no está en `UserResponse`
-        );
+    // Convierte User a UserResponse
+    UserResponse toUserResponse(User user);
+
+    // Método auxiliar para encriptar la contraseña
+    default String encryptPassword(String password) {
+        return new BCryptPasswordEncoder().encode(password);
     }
 }
-
-

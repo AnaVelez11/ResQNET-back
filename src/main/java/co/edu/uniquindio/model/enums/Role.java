@@ -1,5 +1,5 @@
 package co.edu.uniquindio.model.enums;
 
-public enum Rol {
+public enum Role {
     ADMIN, USER;
 }
