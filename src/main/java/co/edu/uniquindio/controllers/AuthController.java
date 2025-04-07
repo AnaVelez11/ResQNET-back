@@ -4,12 +4,10 @@ import co.edu.uniquindio.dto.ActivateUserRequest;
 import co.edu.uniquindio.dto.LoginDTO;
 import co.edu.uniquindio.dto.PasswordResetRequest;
 import co.edu.uniquindio.model.ActivationCode;
-import co.edu.uniquindio.model.PasswordResetCode;
 import co.edu.uniquindio.model.User;
 import co.edu.uniquindio.repositories.UserRepository;
 import co.edu.uniquindio.services.interfaces.AuthService;
 import co.edu.uniquindio.services.interfaces.EmailService;
-import co.edu.uniquindio.services.interfaces.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

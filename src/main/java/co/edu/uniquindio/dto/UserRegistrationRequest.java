@@ -37,11 +37,7 @@ public record UserRegistrationRequest(
         String address,
 
         @NotBlank(message = "El campo es requerido")
-        String city,
+        String city
 
-        Role role
 ) {
-    public UserRegistrationRequest {
-        role = Objects.requireNonNullElse(role, Role.USER);
-    }
 }

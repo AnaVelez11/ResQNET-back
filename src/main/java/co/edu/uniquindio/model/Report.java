@@ -1,13 +1,12 @@
 package co.edu.uniquindio.model;
 
 import co.edu.uniquindio.model.enums.ReportStatus;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
-@Document("reportes")
+@Document("reports")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,11 +19,11 @@ import java.util.List;
         private String title;
         private String description;
         private LocalDateTime date;
-        private String latitude;
-        private String longitude;
-        private List<String> categories;
-        private ObjectId idUser;
+        private int ratingsImportant; // Número de veces que el reporte ha sido marcado como importante
         private ReportStatus status;
-        // Número de veces que el reporte ha sido marcado como importante
-        private int ratingsImportant;
+        private Location location;
+
+        private List<String> categories;
+        private List<String> imageUrls;
+
     }

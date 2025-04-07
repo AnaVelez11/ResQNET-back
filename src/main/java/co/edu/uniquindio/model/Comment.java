@@ -17,5 +17,7 @@ public class Comment {
     private String idComment;
     private Date date;
     private String content;
+    private String idReport;
+    private String idUser;
 
 }
