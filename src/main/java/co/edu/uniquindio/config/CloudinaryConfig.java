@@ -1,5 +1,6 @@
 package co.edu.uniquindio.config;
 import com.cloudinary.Cloudinary;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,4 +27,9 @@ public class CloudinaryConfig {
         config.put("api_secret", apiSecret);
         return new Cloudinary(config); // <- Aquí se crea la instancia de Cloudinary
     }
+    @PostConstruct
+    public void logConfig() {
+        System.out.println("Cloudinary config: " + cloudName + " - " + apiKey + " - " + apiSecret.substring(0, 4) + "****");
+    }
+
 }

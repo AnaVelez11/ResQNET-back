@@ -37,12 +37,17 @@ public class CloudinaryServiceImpl implements CloudinaryService {
                         )
                 );
                 imageUrls.add((String) uploadResult.get("secure_url"));
+                String url = (String) uploadResult.get("secure_url");
+                imageUrls.add(url);
+                log.info("Imagen subida exitosamente: {}", url);
             } catch (IOException e) {
                 log.error("Error subiendo imagen a Cloudinary: {}", e.getMessage());
                 throw new RuntimeException("Error al subir la imagen", e);
             }
         }
-        return imageUrls;    }
+        log.info("Todas las imágenes fueron subidas exitosamente.");
+        return imageUrls;
+    }
 
     @Override
     public void deleteImage(String publicId) {
