@@ -13,31 +13,31 @@ import java.util.List;
 @RequestMapping("/api/categories")
 @RequiredArgsConstructor
 public class CategoryController {
-    private final CategoryService categoryServices;
+    private final CategoryService categoryService;
 
     @PostMapping
     public CategoryResponse create(@Valid CategoryRequest category) {
-        return categoryServices.save(category);
+        return categoryService.save(category);
     }
 
     @GetMapping
     public List<CategoryResponse> getAll() {
-        return categoryServices.findAll();
+        return categoryService.findAll();
     }
 
     @PutMapping("/{id}")
     public CategoryResponse update(@PathVariable("id") String id, @Valid CategoryRequest category) {
-        return categoryServices.update(id, category);
+        return categoryService.update(id, category);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") String id) {
-        categoryServices.deleteById(id);
+        categoryService.deleteById(id);
     }
 
     @GetMapping("/{id}")
     public CategoryResponse findById(@PathVariable("id") String id) {
-        return categoryServices.findById(id);
+        return categoryService.findById(id);
     }
 
 }
