@@ -1,5 +1,7 @@
 package co.edu.uniquindio.exceptions;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -39,5 +41,21 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AuthException.class)
     public ResponseEntity<ErrorResponse> handleAuthException(AuthException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("ERROR", ex.getMessage()));
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException ex) {
+        ErrorResponse response = new ErrorResponse(
+                ex.getErrorCode() != null ? ex.getErrorCode() : "BUSINESS_ERROR",
+                ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+    // Clase DTO para la respuesta de error
+    @Data
+    @AllArgsConstructor
+    private static class ErrorResponse {
+        private String errorCode;
+        private String message;
     }
 }

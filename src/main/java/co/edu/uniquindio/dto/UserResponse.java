@@ -4,6 +4,8 @@ import co.edu.uniquindio.model.enums.Role;
 import co.edu.uniquindio.model.enums.UserStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+
 import java.time.LocalDate;
 
 public record UserResponse(
@@ -34,5 +36,8 @@ public record UserResponse(
 
         Role role,
 
-        UserStatus status
+        UserStatus status,
+
+        GeoJsonPoint location  // Nuevo campo
+
 ) {}

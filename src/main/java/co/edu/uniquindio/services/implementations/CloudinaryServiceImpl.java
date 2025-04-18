@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,6 @@ public class CloudinaryServiceImpl implements CloudinaryService {
                                 "resource_type", "auto"
                         )
                 );
-                imageUrls.add((String) uploadResult.get("secure_url"));
                 String url = (String) uploadResult.get("secure_url");
                 imageUrls.add(url);
                 log.info("Imagen subida exitosamente: {}", url);
@@ -50,7 +50,41 @@ public class CloudinaryServiceImpl implements CloudinaryService {
     }
 
     @Override
-    public void deleteImage(String publicId) {
+    public void deleteImages(List<String> imageUrls) {
+        if (imageUrls == null || imageUrls.isEmpty()) {
+            return;
+        }
 
+        imageUrls.forEach(this::deleteImageByUrl);
+    }
+
+    //  Métodos auxiliares
+    private void deleteImageByUrl(String imageUrl) {
+        try {
+            // Extrae el public_id de la URL
+            String publicId = extractPublicIdFromUrl(imageUrl);
+            if (publicId != null) {
+                Map<String, String> options = new HashMap<>();
+                cloudinary.uploader().destroy(publicId, options);
+            }
+        } catch (Exception e) {
+            // Loggear el error pero continuar
+            log.error("Error al eliminar imagen de Cloudinary: " + imageUrl, e);
+        }
+    }
+    private String extractPublicIdFromUrl(String imageUrl) {
+        try {
+            String[] parts = imageUrl.split("/upload/");
+            if (parts.length > 1) {
+                String path = parts[1];
+                // Elimina parámetros de versión (v12345) si existen
+                path = path.replaceFirst("^v\\d+/", "");
+                // Elimina la extensión del archivo
+                return path.substring(0, path.lastIndexOf('.'));
+            }
+        } catch (Exception e) {
+            log.error("Error al extraer public_id de URL: " + imageUrl, e);
+        }
+        return null;
     }
 }

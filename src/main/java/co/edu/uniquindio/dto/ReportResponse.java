@@ -16,7 +16,9 @@ public record ReportResponse(
         int ratingsImportant,
         String userId,
         List<String> imageUrls,
-        String rejectionReason
+        String rejectionReason,
+        //boolean isLikedByCurrentUser,
+        String message
 ) {
 
 }

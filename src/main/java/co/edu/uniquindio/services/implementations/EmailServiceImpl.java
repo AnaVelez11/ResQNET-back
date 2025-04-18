@@ -1,5 +1,7 @@
 package co.edu.uniquindio.services.implementations;
 
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import co.edu.uniquindio.services.interfaces.EmailService;
 import jakarta.mail.MessagingException;
@@ -60,6 +62,19 @@ public class EmailServiceImpl implements EmailService {
             throw new RuntimeException("Error al enviar el correo de recuperación: " + e.getMessage());
         }
     }
+    @Override
+    public void sendEmail(String to, String subject, String body) throws MessagingException {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(body);
+            mailSender.send(message);
+        } catch (MailException e) {
+            throw new MessagingException("Error enviando email: " + e.getMessage());
+        }
+    }
+
 
 
 

@@ -37,7 +37,10 @@ public record UserRegistrationRequest(
         String address,
 
         @NotBlank(message = "El campo es requerido")
-        String city
+        String city,
+
+        double longitude,  // Nuevo campo
+        double latitude
 
 ) {
 }

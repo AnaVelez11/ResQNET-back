@@ -9,6 +9,8 @@
     import org.springframework.data.mongodb.core.mapping.Document;
     import lombok.*;
     import java.time.LocalDateTime;
+    import org.springframework.data.mongodb.core.mapping.Field;
+
     import java.util.List;
 
     @Builder
@@ -30,10 +32,14 @@
             private ReportStatus status;
             @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
             private GeoJsonPoint location;
-            private ObjectId idUser;
+            private String idUser;
             private String rejectionReason;
 
+            @Field("anonymous")
+            private boolean anonymous = false;
             private List<String> categories;
             private List<String> imageUrls;
+            //private List<String> likedBy = new ArrayList<>(); //IDs de usuarios que dieron like
 
-        }
+
+    }

@@ -15,7 +15,8 @@ public record ReportRequest(
         @NotNull
         List<String> categories,
         @NotNull
-        GeoJsonPoint location,
+        LocationDTO location,
+
         List<MultipartFile> images
 ){
 }

@@ -6,6 +6,7 @@ import co.edu.uniquindio.services.interfaces.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
@@ -39,6 +40,15 @@ public class UserController {
         return userResponse
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    @PatchMapping("/{userId}/deactivate")
+    @PreAuthorize("hasRole('ADMIN') or #userId == authentication.principal.id")
+    public ResponseEntity<String> deactivateUser(
+            @PathVariable String userId,
+            @RequestHeader("Authorization") String authHeader) {
+
+        userService.deactivateUser(userId);
+        return ResponseEntity.ok("Cuenta desactivada y reportes anonimizados");
     }
 
 

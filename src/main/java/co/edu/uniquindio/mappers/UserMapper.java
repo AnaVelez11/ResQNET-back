@@ -6,23 +6,16 @@ import co.edu.uniquindio.model.User;
 import co.edu.uniquindio.model.enums.UserStatus;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+import java.util.UUID;
+
+@Mapper(componentModel = "spring", imports = {UUID.class})
 public interface UserMapper {
 
-    // Convierte UserRegistrationRequest a User
-    @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID().toString())")
+    @Mapping(target = "id", expression = "java(UUID.randomUUID().toString())")
     @Mapping(target = "status", constant = "REGISTERED")
-    @Mapping(target = "password", expression = "java(encryptPassword(userDTO.password()))")
+    @Mapping(target = "password", expression = "java(co.edu.uniquindio.utils.PasswordEncoderUtil.encode(userDTO.password()))")
     User parseOf(UserRegistrationRequest userDTO);
 
-    // Convierte User a UserResponse
     UserResponse toUserResponse(User user);
-
-    // Método auxiliar para encriptar la contraseña
-    default String encryptPassword(String password) {
-        return new BCryptPasswordEncoder().encode(password);
-    }
 }

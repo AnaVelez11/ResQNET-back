@@ -5,9 +5,11 @@ import co.edu.uniquindio.dto.LoginDTO;
 import co.edu.uniquindio.dto.PasswordResetRequest;
 import co.edu.uniquindio.model.ActivationCode;
 import co.edu.uniquindio.model.User;
+import co.edu.uniquindio.model.enums.Role;
 import co.edu.uniquindio.repositories.UserRepository;
 import co.edu.uniquindio.services.interfaces.AuthService;
 import co.edu.uniquindio.services.interfaces.EmailService;
+import co.edu.uniquindio.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +28,7 @@ public class AuthController {
     private final AuthService authService;
     private final UserRepository userRepository;
     private final EmailService emailService;
-
+    private final JwtUtil jwtUtil;
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
@@ -90,6 +92,11 @@ public class AuthController {
         return result
                 ? ResponseEntity.ok("Contraseña restablecida con éxito.")
                 : ResponseEntity.badRequest().body("No se pudo restablecer la contraseña.");
+    }
+    @GetMapping("/generate-token/{userId}")
+    public String generateToken(@PathVariable String userId, String role) {
+        return jwtUtil.generateTestToken(userId, role);
+
     }
 
 

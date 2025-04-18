@@ -2,6 +2,7 @@ package co.edu.uniquindio.services.interfaces;
 
 import co.edu.uniquindio.dto.CategoryRequest;
 import co.edu.uniquindio.dto.CategoryResponse;
+import co.edu.uniquindio.model.enums.CategoryStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,4 +13,9 @@ public interface CategoryService {
     List<CategoryResponse> findAll();
     CategoryResponse findById(String id);
     void deleteById(String id);
+    List<String> getAllCategoryNames();
+    List<CategoryResponse> findAllByStatus(CategoryStatus status);
+
+
+
 }
