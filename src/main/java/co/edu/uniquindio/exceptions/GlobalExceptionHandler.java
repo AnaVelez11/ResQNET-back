@@ -16,7 +16,8 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     /**
-     * Maneja excepciones cuando un valor ya existe en la base de datos.
+     * Maneja conflictos cuando ya existe un valor único en la BD
+     * Código HTTP: 409 Conflict
      */
     @ExceptionHandler(ValueConflictException.class)
     public ResponseEntity<ErrorResponse> handleValueConflictException(ValueConflictException ex) {
@@ -24,7 +25,9 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Maneja errores de validación en los DTOs (Ej: contraseña no cumple requisitos).
+     * Maneja errores de validación en los DTOs (@Valid)
+     * Código HTTP: 400 Bad Request
+     * Retorna mapa con errores por campo
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -38,11 +41,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    /**
+     * Maneja errores de autenticación/autorización
+     * Código HTTP: 401 Unauthorized
+     */
     @ExceptionHandler(AuthException.class)
     public ResponseEntity<ErrorResponse> handleAuthException(AuthException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse("ERROR", ex.getMessage()));
     }
 
+    /**
+     * Maneja reglas de negocio
+     * Código HTTP: 409 Conflict
+     * Puede incluir código de error personalizado
+     */
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException ex) {
         ErrorResponse response = new ErrorResponse(
@@ -51,7 +63,13 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
-    // Clase DTO para la respuesta de error
+
+    /**
+     * Estructura estándar para respuestas de error
+     * Contiene:
+     * - errorCode: Código identificador del error
+     * - message: Mensaje descriptivo para el usuario/API
+     */
     @Data
     @AllArgsConstructor
     private static class ErrorResponse {

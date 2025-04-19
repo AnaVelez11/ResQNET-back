@@ -1,6 +1,5 @@
 package co.edu.uniquindio.utils;
 
-import co.edu.uniquindio.model.enums.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -46,6 +45,7 @@ public class JwtUtil {
                 .getBody()
                 .getSubject();
     }
+
     public boolean validateToken(String token) {
         try {
             Claims claims = Jwts.parserBuilder()
@@ -60,6 +60,7 @@ public class JwtUtil {
             return false;
         }
     }
+
     public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(secretKey)
@@ -68,9 +69,21 @@ public class JwtUtil {
                 .getBody();
     }
 
-
-    // Método para pruebas (opcional)
+    //Método para pruebas
     public String generateTestToken(String userId, String role) {
-        return generateToken(userId, role); // Reutiliza la lógica principal
+        return generateToken(userId, role);
+    }
+
+    public String getUserIdFromToken(String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+
+        Claims claims = Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
     }
 }

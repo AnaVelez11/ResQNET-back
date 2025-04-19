@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,9 +21,10 @@ public class CloudinaryServiceImpl implements CloudinaryService {
     private final Cloudinary cloudinary;
 
     @Autowired
-    public  CloudinaryServiceImpl(Cloudinary cloudinary){
+    public CloudinaryServiceImpl(Cloudinary cloudinary) {
         this.cloudinary = cloudinary;
     }
+
     @Override
     public List<String> uploadImages(List<MultipartFile> files) {
         List<String> imageUrls = new ArrayList<>();
@@ -30,13 +32,7 @@ public class CloudinaryServiceImpl implements CloudinaryService {
 
         for (MultipartFile file : files) {
             try {
-                Map<?, ?> uploadResult = cloudinary.uploader().upload(
-                        file.getBytes(),
-                        ObjectUtils.asMap(
-                                "folder", "resqnet/reports",
-                                "resource_type", "auto"
-                        )
-                );
+                Map<?, ?> uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("folder", "resqnet/reports", "resource_type", "auto"));
                 String url = (String) uploadResult.get("secure_url");
                 imageUrls.add(url);
                 log.info("Imagen subida exitosamente: {}", url);
@@ -47,15 +43,6 @@ public class CloudinaryServiceImpl implements CloudinaryService {
         }
         log.info("Todas las imágenes fueron subidas exitosamente.");
         return imageUrls;
-    }
-
-    @Override
-    public void deleteImages(List<String> imageUrls) {
-        if (imageUrls == null || imageUrls.isEmpty()) {
-            return;
-        }
-
-        imageUrls.forEach(this::deleteImageByUrl);
     }
 
     //  Métodos auxiliares
@@ -72,6 +59,7 @@ public class CloudinaryServiceImpl implements CloudinaryService {
             log.error("Error al eliminar imagen de Cloudinary: " + imageUrl, e);
         }
     }
+
     private String extractPublicIdFromUrl(String imageUrl) {
         try {
             String[] parts = imageUrl.split("/upload/");

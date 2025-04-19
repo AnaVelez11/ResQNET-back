@@ -1,6 +1,5 @@
 package co.edu.uniquindio.model;
 
-
 import co.edu.uniquindio.model.enums.CategoryStatus;
 import lombok.*;
 import org.springframework.data.annotation.Id;

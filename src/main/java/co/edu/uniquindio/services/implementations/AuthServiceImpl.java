@@ -13,6 +13,7 @@ import co.edu.uniquindio.services.interfaces.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -99,6 +100,7 @@ public class AuthServiceImpl implements AuthService {
 
         return true;
     }
+
     @Override
     public void sendPasswordResetCode(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);

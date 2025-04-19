@@ -15,6 +15,7 @@ import java.util.List;
 @Repository
 public interface ReportRepository extends MongoRepository<Report, String> {
     void deleteById(String id);
+
     // Busca reportes por estado y categorías (paginados)
     Page<Report> findByStatusAndCategoriesIn(ReportStatus status, List<String> categories, Pageable pageable);
 
@@ -54,6 +55,7 @@ public interface ReportRepository extends MongoRepository<Report, String> {
     // Excluye reportes anónimos en consultas normales
     @Query("{ 'anonymous': false }")
     Page<Report> findAllActive(Pageable pageable);
+
     @Query("{ 'idUser': ?0 }")
     List<Report> findByIdUser(String idUser);
 

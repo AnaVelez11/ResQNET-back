@@ -10,4 +10,5 @@ public record ActivateUserRequest(
 
         @NotBlank(message = "El código de activación es requerido")
         String code
-) {}
+) {
+}

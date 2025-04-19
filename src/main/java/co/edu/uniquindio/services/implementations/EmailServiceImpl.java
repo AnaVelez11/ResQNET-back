@@ -42,6 +42,7 @@ public class EmailServiceImpl implements EmailService {
             throw new RuntimeException("Error al enviar el correo: " + e.getMessage());
         }
     }
+
     @Override
     public void sendPasswordResetEmail(String to, String code) {
         String subject = "Recuperación de contraseña - ResQNET";
@@ -62,6 +63,7 @@ public class EmailServiceImpl implements EmailService {
             throw new RuntimeException("Error al enviar el correo de recuperación: " + e.getMessage());
         }
     }
+
     @Override
     public void sendEmail(String to, String subject, String body) throws MessagingException {
         try {
@@ -74,11 +76,6 @@ public class EmailServiceImpl implements EmailService {
             throw new MessagingException("Error enviando email: " + e.getMessage());
         }
     }
-
-
-
-
-
 
 
 }

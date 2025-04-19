@@ -1,11 +1,9 @@
 package co.edu.uniquindio.dto;
 
-import co.edu.uniquindio.model.enums.Role;
-import co.edu.uniquindio.model.enums.UserStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
-import java.util.Objects;
 
 
 public record UserRegistrationRequest(

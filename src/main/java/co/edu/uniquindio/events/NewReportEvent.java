@@ -1,12 +1,18 @@
 package co.edu.uniquindio.events;
 
 import co.edu.uniquindio.model.Report;
-import co.edu.uniquindio.model.User;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
-import java.util.List;
-
+/**
+ * Evento personalizado que se dispara cuando:
+ * 1. Se crea un nuevo reporte en el sistema
+ * 2. Se necesita notificar a usuarios cercanos
+ * Contiene:
+ * - Reporte generado
+ * - ID del usuario a notificar
+ * - Distancia en km entre el usuario y el reporte
+ */
 @Getter
 public class NewReportEvent extends ApplicationEvent {
     private final Report report;

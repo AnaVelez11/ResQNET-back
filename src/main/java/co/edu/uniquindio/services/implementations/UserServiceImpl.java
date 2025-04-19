@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 @RequiredArgsConstructor
 @Slf4j
-@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -48,27 +48,14 @@ public class UserServiceImpl implements UserService {
         }
 
         // Crear el punto GeoJSON con las coordenadas
-        GeoJsonPoint location = new GeoJsonPoint(
-                request.longitude(),
-                request.latitude()
-        );
+        GeoJsonPoint location = new GeoJsonPoint(request.longitude(), request.latitude());
 
         // Construcción del usuario con los atributos correctos
-        User newUser = User.builder()
-                .id(request.id())
-                .name(request.fullName())
-                .email(request.email())
-                .password(encode(request.password())) //Encriptar contraseña
-                .phone(request.phone())
-                .address(request.address())
-                .city(request.city())
-                .birthDate(java.sql.Date.valueOf(request.dateBirth())) //Convertir LocalDate a Date
-                .role(Role.CLIENT)
-                .status(UserStatus.REGISTERED)
-                .activationCodes(new ArrayList<>()) // Lista vacía de códigos de activación
+        User newUser = User.builder().id(request.id()).name(request.fullName()).email(request.email()).password(encode(request.password())) //Encriptar contraseña
+                .phone(request.phone()).address(request.address()).city(request.city()).birthDate(java.sql.Date.valueOf(request.dateBirth())) //Convertir LocalDate a Date
+                .role(Role.CLIENT).status(UserStatus.REGISTERED).activationCodes(new ArrayList<>()) // Lista vacía de códigos de activación
                 .reports(new ArrayList<>()) // Lista vacía de reportes
-                .location(location)
-                .build();
+                .location(location).build();
 
 
         // Guardar el usuario en MongoDB
@@ -84,14 +71,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserResponse> getUser(String id) {
-        return userRepository.findById(id)
-                .map(userMapper::toUserResponse);
+        return userRepository.findById(id).map(userMapper::toUserResponse);
     }
+
     @Transactional
     public void deactivateUser(String userId) {
         // 1. Validar y desactivar usuario
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
         if (!user.isActive()) {
             log.warn("El usuario {} ya estaba desactivado", userId);

@@ -1,12 +1,11 @@
 package co.edu.uniquindio.model;
+
 import co.edu.uniquindio.model.enums.Role;
 import co.edu.uniquindio.model.enums.UserStatus;
 import lombok.*;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -24,6 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @Document(collection = "users")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 public class User {
     @Id
     @EqualsAndHashCode.Include
@@ -49,7 +49,9 @@ public class User {
     private List<String> reports;
     private List<ActivationCode> activationCodes;
     private List<ResetCode> resetCodes;
-    //private List<String> likedReports = new ArrayList<>(); //IDs de reportes marcados como importantes
+
+    @Field("likedReports")
+    private List<String> likedReports = new ArrayList<>();
 
 
 }

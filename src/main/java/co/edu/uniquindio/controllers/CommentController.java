@@ -2,9 +2,7 @@ package co.edu.uniquindio.controllers;
 
 import co.edu.uniquindio.dto.CommentDTO;
 import co.edu.uniquindio.dto.CommentResponse;
-import co.edu.uniquindio.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.model.Comment;
-import co.edu.uniquindio.model.User;
 import co.edu.uniquindio.services.interfaces.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +17,9 @@ public class CommentController {
 
     private final CommentService commentService;
 
+    //// Agregar nuevo comentario (usuario autenticado)
+    ///
+    //// Retorna comentario creado con datos del autor
     @PostMapping
     public ResponseEntity<CommentResponse> addComment(
             @RequestBody @Valid CommentDTO commentDTO,

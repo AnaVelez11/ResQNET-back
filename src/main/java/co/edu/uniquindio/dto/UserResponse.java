@@ -40,4 +40,5 @@ public record UserResponse(
 
         GeoJsonPoint location  // Nuevo campo
 
-) {}
+) {
+}

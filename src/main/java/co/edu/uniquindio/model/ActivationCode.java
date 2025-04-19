@@ -1,7 +1,7 @@
 package co.edu.uniquindio.model;
+
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 

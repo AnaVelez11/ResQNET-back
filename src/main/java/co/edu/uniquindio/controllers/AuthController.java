@@ -5,7 +5,6 @@ import co.edu.uniquindio.dto.LoginDTO;
 import co.edu.uniquindio.dto.PasswordResetRequest;
 import co.edu.uniquindio.model.ActivationCode;
 import co.edu.uniquindio.model.User;
-import co.edu.uniquindio.model.enums.Role;
 import co.edu.uniquindio.repositories.UserRepository;
 import co.edu.uniquindio.services.interfaces.AuthService;
 import co.edu.uniquindio.services.interfaces.EmailService;
@@ -15,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -30,11 +30,18 @@ public class AuthController {
     private final EmailService emailService;
     private final JwtUtil jwtUtil;
 
+    /// /Autenticar al usuario (email + contraseña)
+    ///
+    /// Retorna token JWT si las credenciales son válidas
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
         String token = authService.login(loginDTO);
         return ResponseEntity.ok(token);
     }
+
+    /// / Activar cuenta de usuario con código de verificación
+    ///
+    /// / Retorna confirmación si el código es válido, error si no
     @PostMapping("/activate")
     public ResponseEntity<String> activateUser(@RequestBody @Validated ActivateUserRequest request) {
         boolean activated = authService.activateUser(request.email(), request.code());
@@ -45,6 +52,10 @@ public class AuthController {
             return ResponseEntity.badRequest().body("No se pudo activar el usuario");
         }
     }
+
+    /// / Enviar código de activación al email del usuario
+    ///
+    /// / Retorna confirmación de envío o error si el email no existe
     @PostMapping("/send-activation-email")
     public ResponseEntity<String> sendActivationEmail(@RequestParam String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
@@ -80,12 +91,18 @@ public class AuthController {
         return ResponseEntity.ok("Correo de activación enviado a " + email);
     }
 
+    /// / Solicitar reseteo de contraseña (envía código al email)
+    ///
+    /// / Retorna confirmación de envío
     @PostMapping("/request-password-reset")
     public ResponseEntity<String> requestReset(@RequestParam String email) {
         authService.sendPasswordResetCode(email);
         return ResponseEntity.ok("Se ha enviado un código de recuperación al correo.");
     }
 
+    /// / Restablecer contraseña con código de verificación
+    ///
+    /// / Retorna éxito o error si el código/email son inválidos
     @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(@RequestBody PasswordResetRequest request) {
         boolean result = authService.resetPassword(request.email(), request.code(), request.newPassword());
@@ -93,13 +110,15 @@ public class AuthController {
                 ? ResponseEntity.ok("Contraseña restablecida con éxito.")
                 : ResponseEntity.badRequest().body("No se pudo restablecer la contraseña.");
     }
+
+    /// / Generar token JWT de prueba (solo para desarrollo)
+    ///
+    /// / Retorna token generado manualmente
     @GetMapping("/generate-token/{userId}")
     public String generateToken(@PathVariable String userId, String role) {
         return jwtUtil.generateTestToken(userId, role);
 
     }
-
-
 
 
 }

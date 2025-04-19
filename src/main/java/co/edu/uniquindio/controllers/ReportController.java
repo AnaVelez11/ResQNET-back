@@ -1,12 +1,15 @@
 package co.edu.uniquindio.controllers;
 
 import co.edu.uniquindio.dto.*;
+import co.edu.uniquindio.exceptions.ForbiddenActionException;
+import co.edu.uniquindio.exceptions.ResourceNotFoundException;
 import co.edu.uniquindio.model.enums.ReportStatus;
 import co.edu.uniquindio.utils.JwtUtil;
 import co.edu.uniquindio.services.interfaces.ReportService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +29,9 @@ public class ReportController {
     private final ReportService reportService;
     private final JwtUtil jwtUtil;
 
+    /// / Crear un nuevo reporte con datos multipart (texto + imágenes)
+    ///
+    /// / Retorna reporte creado con todos sus datos
     @PostMapping("/create")
     public ResponseEntity<ReportResponse> createReport(
             @RequestParam("title") String title,
@@ -40,7 +46,8 @@ public class ReportController {
         List<String> categories;
         try {
             location = mapper.readValue(locationJson, LocationDTO.class);
-            categories = mapper.readValue(categoriesJson, new TypeReference<>() {});
+            categories = mapper.readValue(categoriesJson, new TypeReference<>() {
+            });
         } catch (Exception e) {
             throw new RuntimeException("Error al convertir datos JSON", e);
         }
@@ -50,6 +57,9 @@ public class ReportController {
         return ResponseEntity.ok(response);
     }
 
+    /// / Actualizar un reporte existente (con posibles nuevas imágenes)
+    ///
+    /// / Retorna reporte actualizado
     @PutMapping("/update/{reportId}")
     public ResponseEntity<ReportResponse> updateReport(
             @PathVariable String reportId,
@@ -85,6 +95,10 @@ public class ReportController {
         ReportResponse updatedReport = reportService.updateReport(request, reportId, userId);
         return ResponseEntity.ok(updatedReport);
     }
+
+    /// / Cambiar el estado de un reporte (Admin/Usuario)
+    ///
+    /// / Retorna reporte con estado actualizado
     @PatchMapping("/{reportId}/status")
     public ResponseEntity<ReportResponse> updateReportStatus(
             @PathVariable String reportId,
@@ -95,6 +109,10 @@ public class ReportController {
         ReportResponse response = reportService.updateReportStatus(reportId, status, rejectionReason, userId);
         return ResponseEntity.ok(response);
     }
+
+    /// / Filtrar reportes (Admin) con salida en PDF o JSON
+    ///
+    /// / Retorna lista de reportes filtrados o PDF generado
     @GetMapping("/admin/filter")
     @PreAuthorize("hasRole('ADMIN')")
     public void filterReportsAdmin(
@@ -107,7 +125,7 @@ public class ReportController {
             @RequestParam(required = false) Double radius,
             @RequestParam(defaultValue = "web") String format,
             HttpServletResponse response,
-            @RequestHeader("Authorization") String authHeader  // Añade este parámetro
+            @RequestHeader("Authorization") String authHeader
     ) throws IOException {
 
         // Extrae el ID del admin del token
@@ -119,46 +137,119 @@ public class ReportController {
         } else {
             List<ReportResponse> reports = reportService.getReportsWithFilters(
                     new ReportFilterRequest(categories, status, startDate, endDate, lat, lng, radius),
-                    adminId  // Pasa el ID real en lugar de null
+                    adminId
             );
             response.setContentType("application/json");
             new ObjectMapper().writeValue(response.getWriter(), reports);
         }
     }
 
+    /// / Eliminar un reporte (Usuario/Admin)
+    ///
+    /// / Retorna confirmación de eliminación
+    @DeleteMapping("/{reportId}")
+    public ResponseEntity<String> deleteReport(
+            @PathVariable String reportId,
+            @RequestHeader("Authorization") String token
+    ) {
+        String userId = jwtUtil.getUserIdFromToken(token);
 
-    /*
+        reportService.deleteReport(reportId, userId);
+
+        return ResponseEntity.ok("Reporte eliminado exitosamente");
+    }
+
+    /// / Marcar/desmarcar reporte como importante
+    ///
+    /// / Retorna status 200 sin contenido
     @PostMapping("/{reportId}/toggle-importance")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Void> toggleReportImportance(
             @PathVariable String reportId,
             @RequestHeader("Authorization") String authHeader) {
 
-        // Obtener ID del usuario autenticado desde el token JWT
+        // Extraer el token del header
         String token = authHeader.replace("Bearer ", "").trim();
+
+        // Obtener ID del usuario desde el token
         String userId = jwtUtil.extractUserId(token);
 
+        // Llamar al servicio
         reportService.toggleReportImportance(reportId, userId);
+
         return ResponseEntity.ok().build();
     }
 
+    /// / Obtener usuarios que marcaron un reporte como importante (Admin)
+    ///
+    /// / Retorna lista de IDs de usuarios
 
-    // Obtener todos los reportes de un usuario
+    @GetMapping("/reports/{reportId}/liked-by")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<String>> getLikedBy(@PathVariable String reportId) {
+        return ResponseEntity.ok(reportService.getLikedBy(reportId));
+    }
+
+    /// / Obtener reportes marcados como importantes por un usuario
+    ///
+    /// / Retorna lista de IDs de reportes
+    @GetMapping("/users/{userId}/liked-reports")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<List<String>> getLikedReports(@PathVariable String userId) {
+        return ResponseEntity.ok(reportService.getLikedReports(userId));
+    }
+
+    /// / Rechazar un reporte con motivo (Admin)
+    ///
+    /// / Retorna reporte rechazado con motivo y fecha límite
+    @PatchMapping("/{reportId}/reject")
+    public ResponseEntity<ReportResponse> rejectReportWithReason(
+            @PathVariable String reportId,
+            @Valid @RequestBody RejectReportRequest request,
+            @RequestHeader("X-User-Id") String adminId)
+            throws ResourceNotFoundException, ForbiddenActionException {
+
+        return ResponseEntity.ok(
+                reportService.rejectReportWithReason(
+                        reportId,
+                        request.reason(),
+                        adminId
+                )
+        );
+    }
+
+    /// / Reenviar un reporte rechazado después de correcciones
+    ///
+    /// / Retorna reporte en estado PENDING para revisión
+    @PutMapping("/{reportId}/resubmit")
+    public ResponseEntity<ReportResponse> resubmitReport(
+            @PathVariable String reportId,
+            @Valid @RequestBody ReportRequest request,
+            @RequestHeader("X-User-Id") String userId)
+            throws ResourceNotFoundException, ForbiddenActionException {
+
+        return ResponseEntity.ok(
+                reportService.resubmitReport(request, reportId, userId)
+        );
+    }
+
+    /// // Obtener todos los reportes de un usuario específico
+    ///
+    /// / Retorna lista de reportes del usuario
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ReportResponse>> getReportsByUser(@PathVariable String userId) {
         List<ReportResponse> reports = reportService.getReportsByUserId(userId);
         return ResponseEntity.ok(reports);
     }
 
-    // Obtener un reporte por su ID
+    /// / Obtener un reporte específico por su ID
+    ///
+    /// / Retorna detalle completo del reporte
     @GetMapping("/{reportId}")
     public ResponseEntity<ReportResponse> getReportById(@PathVariable String reportId) {
         ReportResponse response = reportService.getReportById(reportId);
         return ResponseEntity.ok(response);
     }
-
-     */
-
 
 
 }

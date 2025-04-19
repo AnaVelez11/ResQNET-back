@@ -15,6 +15,9 @@ public class ImageUploadController {
 
     private final CloudinaryService cloudinaryService;
 
+    //// Subir múltiples imágenes a Cloudinary
+    ///
+    //// Retorna lista de URLs públicas de las imágenes subidas
     @PostMapping("/upload")
     public ResponseEntity<List<String>> uploadImages(@RequestParam("files") List<MultipartFile> files) {
         List<String> urls = cloudinaryService.uploadImages(files);

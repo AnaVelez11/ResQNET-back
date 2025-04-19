@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface CloudinaryService {
     List<String> uploadImages(List<MultipartFile> files);
-    void deleteImages(List<String> imageUrls);
 
 }

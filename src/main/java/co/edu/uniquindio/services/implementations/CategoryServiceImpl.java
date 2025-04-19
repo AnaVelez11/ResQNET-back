@@ -13,10 +13,11 @@ import co.edu.uniquindio.repositories.ReportRepository;
 import co.edu.uniquindio.services.interfaces.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final ReportRepository reportRepository;
@@ -38,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponse update(String id, CategoryRequest category) {
         Category existingCategory = findActiveById(id);
 
-        if(!existingCategory.getName().equals(category.name())) {
+        if (!existingCategory.getName().equals(category.name())) {
             validateCategoryName(category.name());
         }
 
@@ -97,12 +98,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private void validateCategoryName(String name) {
-        if(categoryRepository.existsByNameAndStatus(name, CategoryStatus.ACTIVE)) {
+        if (categoryRepository.existsByNameAndStatus(name, CategoryStatus.ACTIVE)) {
             throw new ValueConflictException("Ya existe una categoría activa con este nombre");
         }
     }
 
-    //Método para buscar por estado
     public List<CategoryResponse> findAllByStatus(CategoryStatus status) {
         return categoryRepository.findAllByStatus(status)
                 .stream()

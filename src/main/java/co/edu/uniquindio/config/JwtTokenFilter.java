@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -25,6 +24,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         this.jwtUtil = jwtUtil;
     }
 
+
+    /// / Filtro que verifica el token JWT en cada petición:
+    /// / 1. Extrae el token del header 'Authorization'
+    /// / 2. Valida su estructura (debe comenzar con "Bearer ")
+    /// / 3. Si es válido, extrae el ID de usuario y su rol
+    /// / 4. Crea y guarda la autenticación en el contexto de seguridad
+    /// / 5. Si falla, devuelve error 401 (No autorizado)
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
@@ -38,9 +44,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-
         String token = header.replace("Bearer ", "");
-
         try {
             if (jwtUtil.validateToken(token)) {
                 String userId = jwtUtil.extractUserId(token);

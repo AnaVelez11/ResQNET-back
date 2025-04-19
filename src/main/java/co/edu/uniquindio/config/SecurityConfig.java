@@ -34,7 +34,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                //Deshabilitar CSRF
                 .csrf(csrf -> csrf.disable())
+
+                //Configurar CORS (permite conexiones desde cualquier origen)
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
                     config.setAllowedOrigins(List.of("*")); // Permite todos los orígenes (ajusta en producción)
@@ -42,7 +45,9 @@ public class SecurityConfig {
                     config.setAllowedHeaders(List.of("*"));
                     return config;
                 }))
+                //Definir reglas de acceso para endpoints:
                 .authorizeHttpRequests(auth -> auth
+                        // Endpoints que requieren rol ADMIN o CLIENT:
                         .requestMatchers(
                                 "/api/reports/create",
                                 "/api/reports/update/**",
@@ -52,14 +57,16 @@ public class SecurityConfig {
                         ).hasAnyAuthority("ADMIN", "CLIENT")
                         .anyRequest().permitAll()
                 )
+                //Añadir filtro JWT antes de la autenticación básica
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
     @Bean
     protected MethodSecurityExpressionHandler expressionHandler() {
         DefaultMethodSecurityExpressionHandler handler = new DefaultMethodSecurityExpressionHandler();
-        handler.setDefaultRolePrefix(""); // Elimina el prefijo "ROLE_" para hasRole
+        handler.setDefaultRolePrefix("");
         return handler;
     }
 }
