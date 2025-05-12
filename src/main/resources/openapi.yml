@@ -806,7 +806,7 @@ components:
         - name
         - email
         - password
-        - dateBirth
+        - birthDate
         - rol
       properties:
         name:
@@ -816,7 +816,7 @@ components:
         email:
           type: string
           format: email
-        dateBirth:
+        birthDate:
           type: string
           format: date
           example: "1990-09-02"

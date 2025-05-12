@@ -1,4 +1,4 @@
-package com.example.demo.controllers.integration;
+package co.edu.uniquindio.controllers.integration;
 
 import co.edu.uniquindio.ProjectApplication;
 import co.edu.uniquindio.services.interfaces.CloudinaryService;
@@ -17,7 +17,7 @@ import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
- /*
+/**
 @SpringBootTest(classes = ProjectApplication.class)
 @AutoConfigureMockMvc
 public class ImageUploadControllerTest {
@@ -47,5 +47,4 @@ public class ImageUploadControllerTest {
     }
 }
 
-
-  */
+*/

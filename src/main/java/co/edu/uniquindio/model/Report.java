@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
+@Builder(toBuilder = true)
 @Document("reports")
 @Getter
 @Setter
@@ -40,6 +40,7 @@ public class Report {
     // Campos para estado REJECTED
     private LocalDateTime rejectionDate; // Nueva fecha de rechazo
     private LocalDateTime resubmissionDeadline; // Fecha límite para reenvío
+    @Builder.Default
     private int resubmissionCount = 0; // Contador de reenvíos
 
     // Campos para estado VERIFIED
@@ -51,11 +52,13 @@ public class Report {
     private LocalDateTime resolutionDate;
 
     @Field("anonymous")
+    @Builder.Default
     private boolean anonymous = false;
     private List<String> categories;
     private List<String> imageUrls;
 
     @Field("likedBy")
+    @Builder.Default
     private List<String> likedBy = new ArrayList<>();
 
 

@@ -1,6 +1,5 @@
 package co.edu.uniquindio.repositories;
 
-import co.edu.uniquindio.dto.UserResponse;
 import co.edu.uniquindio.model.User;
 import co.edu.uniquindio.model.enums.UserStatus;
 import org.springframework.data.domain.Page;
@@ -15,29 +14,29 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
-    boolean existsById(String id);
 
-    @Query(value = "{ 'status': { $ne: 'DELETED' }, 'email': ?0 }")
-    Optional<User> findByEmail(String email);
+    boolean existsById(String id);
 
     Optional<User> findById(String id);
 
+    Optional<User> findByEmail(String email);
 
-    @Query(value = "{ 'status': { $ne: 'DELETED' }, " +
-            "  'fullName': { $regex: ?0, $options: 'i' }, " +
+    // Método específico para encontrar solo usuarios no inactivos
+    @Query(value = "{ 'status': { $ne: 'INACTIVE' }, 'email': ?0 }")
+    Optional<User> findActiveUserByEmail(String email);
+
+    @Query(value = "{ 'status': { $ne: 'INACTIVE' }, " +
+            "  'name': { $regex: ?0, $options: 'i' }, " +
             "  'email': { $regex: ?1, $options: 'i' }, " +
-            "  ?#{ [2] != null ? 'dateBirth' : '_ignore' } : ?2 }",
-            sort = "{ 'fullName': 1 }")
-    Page<User> findExistingUsersByFilters(String fullName, String email, LocalDate dateBirth, Pageable pageable);
+            "  ?#{ [2] != null ? 'birthDate' : '_ignore' } : ?2 }",
+            sort = "{ 'name': 1 }")
+    Page<User> findExistingUsersByFilters(String fullName, String email, LocalDate birthDate, Pageable pageable);
 
-    List<UserResponse> findByStatusNot(UserStatus status);
+    List<User> findByStatusNot(UserStatus status);
 
     @Query("{ 'location': { $nearSphere: { $geometry: { type: 'Point', coordinates: [?0, ?1] }, $maxDistance: ?2 } }, 'id': { $ne: ?3 } }")
     List<User> findUsersNearLocation(double longitude, double latitude, double maxDistanceInMeters, String excludeUserId);
 
-    @Query("{ 'email': ?0, 'active': true }")
-        // Filtra solo usuarios activos
-    Optional<User> findActiveByEmail(String email);
 
 }
     

@@ -1,9 +1,13 @@
 package co.edu.uniquindio.dto;
 
+import co.edu.uniquindio.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 public record UserRegistrationRequest(
@@ -26,7 +30,7 @@ public record UserRegistrationRequest(
         @NotNull(message = "La fecha no puede ser nula")
         @PastOrPresent(message = "La fecha no puede ser futura")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-        LocalDate dateBirth,
+        LocalDate birthDate,
 
         @NotBlank(message = "El campo es requerido")
         String phone,
@@ -37,8 +41,9 @@ public record UserRegistrationRequest(
         @NotBlank(message = "El campo es requerido")
         String city,
 
-        double longitude,  // Nuevo campo
-        double latitude
-
-) {
+        GeoJsonPoint location,
+        Role role) {
+        public UserRegistrationRequest{
+                role = Objects.requireNonNullElse(role, Role.CLIENT);
+        }
 }

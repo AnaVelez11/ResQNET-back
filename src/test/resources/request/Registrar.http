@@ -9,7 +9,7 @@ GET http://localhost:8080/users/7e51313a-d5dd-432f-b01f-54efb9a48f0e
    "email": "usuario@mail.com",
    "password": "12345aBc",
    "fullName": "Usuario de Prueba",
-   "dateBirth": "1990-05-12"
+   "birthDate": "1990-05-12"
  }
 
  ###
@@ -20,7 +20,7 @@ GET http://localhost:8080/users/7e51313a-d5dd-432f-b01f-54efb9a48f0e
    "email": "usuario2@mail.com",
    "password": "12345aBc",
    "fullName": "Usuario de Prueba 2",
-   "dateBirth": "1990-05-12"
+   "birthDate": "1990-05-12"
  }
 
  ###
@@ -31,7 +31,7 @@ GET http://localhost:8080/users/7e51313a-d5dd-432f-b01f-54efb9a48f0e
    "email": "usuario3@mail.com",
    "password": "12345aBc",
    "fullName": "Usuario de Prueba 3",
-   "dateBirth": "1990-05-13"
+   "birthDate": "1990-05-13"
  }
 
 
@@ -42,7 +42,7 @@ GET http://localhost:8080/users/7e51313a-d5dd-432f-b01f-54efb9a48f0e
  {
    "email": "usuariomail.com",
    "fullName": "Usuario de Prueba",
-   "dateBirth": "1990-05-12"
+   "birthDate": "1990-05-12"
  }
 
  ###

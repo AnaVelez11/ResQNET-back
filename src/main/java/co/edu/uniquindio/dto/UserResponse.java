@@ -23,7 +23,7 @@ public record UserResponse(
         @NotNull(message = "La fecha no puede ser nula")
         @PastOrPresent(message = "La fecha no puede ser futura")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-        LocalDate dateBirth,
+        LocalDate birthDate,
 
         @NotBlank(message = "El campo es requerido")
         String phone,

@@ -6,11 +6,13 @@ import co.edu.uniquindio.model.enums.UserStatus;
 import co.edu.uniquindio.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.codecs.jsr310.LocalDateCodec;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class DataInitializer implements CommandLineRunner {
                         .phone("1234567890")
                         .address("Calle 123")
                         .city("Ciudad Uniquindio")
-                        .birthDate(new Date())
+                        .birthDate(LocalDate.of(1999,1,1))
                         .location(new GeoJsonPoint(-75.677, 4.534))
                         .reports(List.of())
                         .activationCodes(List.of())
@@ -57,7 +59,7 @@ public class DataInitializer implements CommandLineRunner {
                         .phone("0987654321")
                         .address("Carrera 456")
                         .city("Ciudad Dos")
-                        .birthDate(new Date())
+                        .birthDate(LocalDate.of(1999,2,1))
                         .location(new GeoJsonPoint(-74.060, 4.710))
                         .reports(List.of())
                         .activationCodes(List.of())
@@ -74,7 +76,7 @@ public class DataInitializer implements CommandLineRunner {
                         .phone("1236547890")
                         .address("Carrera 526")
                         .city("Ciudad Tres")
-                        .birthDate(new Date())
+                        .birthDate(LocalDate.of(1999,5,1))
                         .location(new GeoJsonPoint(-71.042, 4.520))
                         .reports(List.of())
                         .activationCodes(List.of())
@@ -91,7 +93,7 @@ public class DataInitializer implements CommandLineRunner {
                         .phone("897463125")
                         .address("Carrera 357")
                         .city("Ciudad Cuatro")
-                        .birthDate(new Date())
+                        .birthDate(LocalDate.of(1999,4,1))
                         .location(new GeoJsonPoint(-69.052, 5.020))
                         .reports(List.of())
                         .activationCodes(List.of())
@@ -108,7 +110,7 @@ public class DataInitializer implements CommandLineRunner {
                         .phone("0002548974")
                         .address("Carrera 674")
                         .city("Ciudad Cinco")
-                        .birthDate(new Date())
+                        .birthDate(LocalDate.of(1999,8,1))
                         .location(new GeoJsonPoint(-73.255, 5.680))
                         .reports(List.of())
                         .activationCodes(List.of())

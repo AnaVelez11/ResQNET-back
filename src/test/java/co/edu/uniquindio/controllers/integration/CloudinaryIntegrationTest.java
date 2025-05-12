@@ -1,4 +1,4 @@
-package com.example.demo.controllers.integration;
+package co.edu.uniquindio.controllers.integration;
 
 import co.edu.uniquindio.ProjectApplication;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/*
+/**
 @SpringBootTest(classes = ProjectApplication.class)
 
 @AutoConfigureMockMvc
@@ -36,7 +36,6 @@ public class CloudinaryIntegrationTest {
                 .andExpect(jsonPath("$[0]").exists()); // Esperamos que haya al menos una URL de imagen devuelta
     }
 }
+*/
 
 
-
- */

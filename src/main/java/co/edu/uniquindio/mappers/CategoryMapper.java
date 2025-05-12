@@ -19,9 +19,9 @@ public interface CategoryMapper {
     // Convierte CategoryRequest -> Category (para creación)
     // - Genera ID automático UUID
     // - Establece estado inicial ACTIVE
-    @Mapping(target = "id", expression = "java(java.util.UUID.randomUUID().toString())")
+    @Mapping(target = "idCategory", expression = "java(java.util.UUID.randomUUID().toString())")
     @Mapping(target = "status", constant = "ACTIVE")
-    UserResponse toUserResponse(User user);
     Category parseOf(CategoryRequest categoryRequest);
+    @Mapping(source = "idCategory", target = "id")
     CategoryResponse toCategoryResponse(Category category);
 }

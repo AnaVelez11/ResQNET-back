@@ -26,8 +26,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserResponse> create(@Valid @RequestBody UserRegistrationRequest request) {
         // Llamamos al servicio para crear el usuario
-        UserResponse response = userService.createUser(request);
-
+        var response = userService.createUser(request);
         // Construimos la URL del usuario creado
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")

@@ -43,16 +43,16 @@ public class UserServiceImpl implements UserService {
         }
 
         // Validación básica de coordenadas
-        if (Math.abs(request.longitude()) > 180 || Math.abs(request.latitude()) > 90) {
+        if (Math.abs(request.location().getX()) > 180 || Math.abs(request.location().getY()) > 90) {
             throw new IllegalArgumentException("Coordenadas inválidas");
         }
 
         // Crear el punto GeoJSON con las coordenadas
-        GeoJsonPoint location = new GeoJsonPoint(request.longitude(), request.latitude());
+        GeoJsonPoint location = new GeoJsonPoint(request.location().getX(), request.location().getX());
 
         // Construcción del usuario con los atributos correctos
         User newUser = User.builder().id(request.id()).name(request.fullName()).email(request.email()).password(encode(request.password())) //Encriptar contraseña
-                .phone(request.phone()).address(request.address()).city(request.city()).birthDate(java.sql.Date.valueOf(request.dateBirth())) //Convertir LocalDate a Date
+                .phone(request.phone()).address(request.address()).city(request.city()).birthDate((request.birthDate())) //Convertir LocalDate a Date
                 .role(Role.CLIENT).status(UserStatus.REGISTERED).activationCodes(new ArrayList<>()) // Lista vacía de códigos de activación
                 .reports(new ArrayList<>()) // Lista vacía de reportes
                 .location(location).build();

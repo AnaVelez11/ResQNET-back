@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @Document(collection = "users")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-
+@Data
 public class User {
     @Id
     @EqualsAndHashCode.Include
@@ -33,7 +34,7 @@ public class User {
     private String email;
     private String password;
     private String address;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String city;
     private Role role;
     private UserStatus status;
