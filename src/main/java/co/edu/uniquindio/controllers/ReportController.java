@@ -251,5 +251,14 @@ public class ReportController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Obtener **todos** los reportes registrados en la aplicación.
+     * /api/reports/all
+     */
+    @GetMapping("/all")
+    public ResponseEntity<List<ReportResponse>> getAllReports() {
+        List<ReportResponse> reports = reportService.getAllReports();
+        return ResponseEntity.ok(reports);
+    }
 
 }

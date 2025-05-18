@@ -37,4 +37,5 @@ public interface ReportService {
     void generatePdfReport(String status, List<String> categories, LocalDate startDate, LocalDate endDate, Double lat, Double lng, Double radius, HttpServletResponse response) throws IOException;
 
 
+    List<ReportResponse> getAllReports();
 }

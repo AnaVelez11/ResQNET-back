@@ -586,4 +586,11 @@ public class ReportServiceImpl implements ReportService {
         messagingTemplate.convertAndSend(destination, message);
         log.info("Notificación de cambio de estado enviada: {}", message);
     }
+
+    @Override
+    public List<ReportResponse> getAllReports() {
+        return reportRepository.findAll().stream()
+                .map(reportMapper::toResponse)
+                .toList();
+    }
 }

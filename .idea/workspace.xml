@@ -5,35 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2dfb8866-a8cf-4d79-a4bd-a954698f75e3" name="Changes" comment="new">
-      <change afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/data/TestDataLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/config/CloudinaryConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/config/CloudinaryConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/config/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/config/DataInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/dto/CategoryResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/dto/CategoryResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/dto/ReportRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/dto/ReportRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/dto/UserRegistrationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/dto/UserRegistrationRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/dto/UserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/dto/UserResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/exceptions/ForbiddenActionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/exceptions/ForbiddenActionException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/exceptions/ResourceNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/exceptions/ResourceNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/mappers/CategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/mappers/CategoryMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/mappers/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/mappers/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/model/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/model/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/model/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/services/implementations/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/services/implementations/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/openapi.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/openapi.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/demo/DemoApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/DemoApplicationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/demo/controllers/integration/CloudinaryIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/controllers/integration/CloudinaryIntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/demo/controllers/integration/ImageUploadControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/controllers/integration/ImageUploadControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/demo/controllers/integration/UserControllerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/demo/controllers/unit/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/co/edu/uniquindio/controllers/unit/UserControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/demo/data/TestDataLoader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/request/Consultar.http" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/request/Consultar.http" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/request/Registrar.http" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/request/Registrar.http" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +62,7 @@
       </GitPushTagMode>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -117,88 +90,88 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Build ResQNET-back.executor": "Run",
-    "Gradle.CategoryControllerTest.executor": "Run",
-    "Gradle.CategoryControllerTest.testCreateCategorySuccess.executor": "Run",
-    "Gradle.CategoryRepositoryTest.executor": "Run",
-    "Gradle.CategoryRepositoryTest.testExistsByCategoriesContaining_viaReportRepository.executor": "Run",
-    "Gradle.CategoryServiceIntegrationTest.executor": "Run",
-    "Gradle.CategoryServiceTest (1).executor": "Run",
-    "Gradle.CategoryServiceTest.executor": "Run",
-    "Gradle.CategoryServiceTest.findAllAndFindById.executor": "Run",
-    "Gradle.CategoryServiceTest.saveAndFindAllAndFindById.executor": "Run",
-    "Gradle.CategoryServiceTest.saveSuccess.executor": "Run",
-    "Gradle.CloudinaryIntegrationTest.executor": "Run",
-    "Gradle.DemoApplicationTest (1).executor": "Run",
-    "Gradle.DemoApplicationTest.contextLoads.executor": "Run",
-    "Gradle.DemoApplicationTest.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.ImageUploadControllerTest.executor": "Debug",
-    "Gradle.ImageUploadControllerTest.testUploadImagesSuccess.executor": "Run",
-    "Gradle.ReportControllerIntegrationTest.executor": "Run",
-    "Gradle.ReportControllerTest (1).executor": "Run",
-    "Gradle.ReportControllerTest.executor": "Run",
-    "Gradle.ReportControllerTest.testCreateReportSuccess (1).executor": "Run",
-    "Gradle.ReportControllerTest.testCreateReportSuccess.executor": "Run",
-    "Gradle.ReportControllerTest.testGetReportByIdNotFound.executor": "Run",
-    "Gradle.ReportControllerTest.testUpdateReportSuccess.executor": "Run",
-    "Gradle.ReportRepositoryTest.executor": "Run",
-    "Gradle.ReportRepositoryTest.testFindRecentReportsNearLocation.executor": "Run",
-    "Gradle.ReportServiceImplTest.executor": "Run",
-    "Gradle.ReportServiceIntegrationTest.executor": "Run",
-    "Gradle.ReportServiceTest.executor": "Run",
-    "Gradle.ResQNET-back [./gradlew bootRun].executor": "Run",
-    "Gradle.ResQNET-back [:co.edu.uniquindio.ProjectApplication.main()].executor": "Run",
-    "Gradle.ResQNET-back [bootRun].executor": "Run",
-    "Gradle.ResQNET-back [build].executor": "Run",
-    "Gradle.ResQNET-back [clean build].executor": "Run",
-    "Gradle.UserControllerTest (1).executor": "Run",
-    "Gradle.UserControllerTest.executor": "Run",
-    "Gradle.UserControllerTest.testCreateUserSuccess (1).executor": "Run",
-    "Gradle.UserControllerTest.testCreateUserSuccess.executor": "Run",
-    "Gradle.UserControllerTest.testCreateUserValueConflictExceptionWhenEmailExists (1).executor": "Run",
-    "Gradle.UserControllerTest.testCreateUserValueConflictExceptionWhenEmailExists.executor": "Run",
-    "Gradle.UserControllerTest.testGetUserNotFound (1).executor": "Run",
-    "Gradle.UserControllerTest.testGetUserNotFound.executor": "Run",
-    "Gradle.UserControllerTest.testGetUserSuccess.executor": "Run",
-    "Gradle.UserRepositoryTest.executor": "Run",
-    "Gradle.UserRepositoryTest.testFindByStatusNotInactive.executor": "Run",
-    "Gradle.UserRepositoryTest.testFindExistingUsersByFilters.executor": "Run",
-    "Gradle.UserRepositoryTest.testFindUserByEmailSuccess.executor": "Run",
-    "Gradle.UserRepositoryTest.testFindUserByEmailWhenInactive.executor": "Run",
-    "Gradle.UserServiceTest (1).executor": "Run",
-    "Gradle.UserServiceTest.executor": "Run",
-    "Gradle.UserServiceTest.testCreateUser.executor": "Run",
-    "Gradle.UserServiceTest.testCreateUserSuccess.executor": "Run",
-    "Gradle.UserServiceTest.testCreateUserThrowsValueConflictExceptionWhenEmailExists.executor": "Run",
-    "Gradle.UserServiceTest.testGetUserNotFound.executor": "Run",
-    "Gradle.UserServiceTest.testGetUserSuccess.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ProjectApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/galvi/ProgramacionAvanzada/ResQNET-back/src/test/resources",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
-    "settings.editor.splitter.proportion": "0.24691358",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build ResQNET-back.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryControllerTest.testCreateCategorySuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryRepositoryTest.testExistsByCategoriesContaining_viaReportRepository.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryServiceIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryServiceTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryServiceTest.findAllAndFindById.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryServiceTest.saveAndFindAllAndFindById.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CategoryServiceTest.saveSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CloudinaryIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DemoApplicationTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DemoApplicationTest.contextLoads.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.DemoApplicationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ImageUploadControllerTest.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.ImageUploadControllerTest.testUploadImagesSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportControllerIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportControllerTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportControllerTest.testCreateReportSuccess (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportControllerTest.testCreateReportSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportControllerTest.testGetReportByIdNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportControllerTest.testUpdateReportSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportRepositoryTest.testFindRecentReportsNearLocation.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportServiceImplTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportServiceIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ReportServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ResQNET-back [./gradlew bootRun].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ResQNET-back [:co.edu.uniquindio.ProjectApplication.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ResQNET-back [bootRun].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ResQNET-back [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ResQNET-back [clean build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.testCreateUserSuccess (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.testCreateUserSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.testCreateUserValueConflictExceptionWhenEmailExists (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.testCreateUserValueConflictExceptionWhenEmailExists.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.testGetUserNotFound (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.testGetUserNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserControllerTest.testGetUserSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserRepositoryTest.testFindByStatusNotInactive.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserRepositoryTest.testFindExistingUsersByFilters.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserRepositoryTest.testFindUserByEmailSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserRepositoryTest.testFindUserByEmailWhenInactive.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest.testCreateUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest.testCreateUserSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest.testCreateUserThrowsValueConflictExceptionWhenEmailExists.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest.testGetUserNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest.testGetUserSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ProjectApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;update-tests-already&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/galvi/ProgramacionAvanzada/ResQNET-back/src/test/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.24691358&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="co.edu.uniquindio.controllers.integration" />
@@ -227,31 +200,7 @@
       <command value="./gradlew clean build " />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.CategoryRepositoryTest.testExistsByCategoriesContaining_viaReportRepository">
-    <configuration name="CategoryControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;co.edu.uniquindio.controllers.integration.CategoryControllerTest&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.UserControllerTest">
     <configuration name="CategoryControllerTest.testCreateCategorySuccess" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -348,6 +297,30 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="UserControllerTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;co.edu.uniquindio.controllers.integration.UserControllerTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="ProjectApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="AdvancedProject.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="co.edu.uniquindio.ProjectApplication" />
@@ -357,11 +330,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.UserControllerTest" />
         <item itemvalue="Gradle.CategoryRepositoryTest.testExistsByCategoriesContaining_viaReportRepository" />
         <item itemvalue="Gradle.CategoryRepositoryTest" />
         <item itemvalue="Gradle.CategoryServiceTest" />
         <item itemvalue="Gradle.CategoryControllerTest.testCreateCategorySuccess" />
-        <item itemvalue="Gradle.CategoryControllerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -419,6 +392,9 @@
       <workItem from="1746652969871" duration="3034000" />
       <workItem from="1746796592050" duration="2687000" />
       <workItem from="1746908379344" duration="33323000" />
+      <workItem from="1747070077033" duration="11000" />
+      <workItem from="1747101536043" duration="731000" />
+      <workItem from="1747102329720" duration="8000" />
     </task>
     <task id="LOCAL-00001" summary="new">
       <option name="closed" value="true" />
@@ -532,7 +508,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="origin/update-tests-already" />
                       </list>
                     </value>
                   </entry>
